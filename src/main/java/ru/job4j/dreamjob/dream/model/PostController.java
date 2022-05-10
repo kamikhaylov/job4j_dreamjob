@@ -1,0 +1,17 @@
+package ru.job4j.dreamjob.dream.model;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@Controller
+public class PostController {
+
+    private final PostStore store = PostStore.instOf();
+
+    @GetMapping("/posts")
+    public String posts(Model model) {
+        model.addAttribute("posts", store.findAll());
+        return "posts";
+    }
+}
