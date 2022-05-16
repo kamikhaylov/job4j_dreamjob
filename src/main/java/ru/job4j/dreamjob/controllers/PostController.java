@@ -1,4 +1,4 @@
-package ru.job4j.dreamjob.controller;
+package ru.job4j.dreamjob.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import ru.job4j.dreamjob.dream.model.post.Post;
-import ru.job4j.dreamjob.dream.model.post.PostStore;
+import ru.job4j.dreamjob.dream.model.Post;
+import ru.job4j.dreamjob.service.PostService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.logging.Logger;
@@ -15,11 +15,11 @@ import java.util.logging.Logger;
 @Controller
 public class PostController {
     private static final Logger LOGGER = Logger.getLogger(PostController.class.getName());
-    private final PostStore store = PostStore.instOf();
+    private final PostService postService = PostService.instOf();
 
     @GetMapping("/posts")
     public String posts(Model model) {
-        model.addAttribute("posts", store.findAll());
+        model.addAttribute("posts", postService.findAll());
         return "posts";
     }
 
@@ -35,19 +35,19 @@ public class PostController {
         String name = req.getParameter("name");
         String description = req.getParameter("description");
         LOGGER.info("name : " + name + ", description : " + description);
-        store.add(name, description);
+        postService.add(name, description);
         return "redirect:/posts";
     }
 
     @GetMapping("/formUpdatePost/{postId}")
     public String formUpdatePost(Model model, @PathVariable("postId") int id) {
-        model.addAttribute("post", store.findById(id));
+        model.addAttribute("post", postService.findById(id));
         return "updatePost";
     }
 
     @PostMapping("/updatePost")
     public String updatePost(@ModelAttribute Post post) {
-        store.update(post);
+        postService.update(post);
         return "redirect:/posts";
     }
 }

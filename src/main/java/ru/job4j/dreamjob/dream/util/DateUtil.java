@@ -1,4 +1,4 @@
-package ru.job4j.dreamjob.util;
+package ru.job4j.dreamjob.dream.util;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

@@ -1,4 +1,4 @@
-package ru.job4j.dreamjob.dream.model.post;
+package ru.job4j.dreamjob.dream.model;
 
 import java.util.Objects;
 

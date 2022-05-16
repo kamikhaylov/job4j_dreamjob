@@ -1,6 +1,7 @@
-package ru.job4j.dreamjob.dream.model.post;
+package ru.job4j.dreamjob.persistence;
 
-import ru.job4j.dreamjob.util.DateUtil;
+import ru.job4j.dreamjob.dream.model.Post;
+import ru.job4j.dreamjob.dream.util.DateUtil;
 
 import java.util.Collection;
 import java.util.Map;
