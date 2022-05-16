@@ -6,14 +6,15 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Logger;
 
 public class PostStore {
     private static final Logger LOGGER = Logger.getLogger(PostStore.class.getName());
     private static final PostStore INST = new PostStore();
-    private int indexId = 3;
 
     private final Map<Integer, Post> posts = new ConcurrentHashMap<>();
+    private final AtomicInteger atomicInteger = new AtomicInteger(3);
 
     private PostStore() {
         posts.put(1, new Post(1, "Junior", "Junior Java Job", "2022-01-01"));
@@ -34,7 +35,7 @@ public class PostStore {
     }
 
     public boolean add(String name, String description) {
-        indexId++;
+        int indexId = atomicInteger.incrementAndGet();
         posts.put(indexId, new Post(indexId, name, description, createDate()));
         LOGGER.info("indexId : " + indexId + ", name : " + name + ", description : " + description);
         return true;
@@ -49,7 +50,8 @@ public class PostStore {
     private String createDate() {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Calendar calendar = Calendar.getInstance();
-        LOGGER.info("createDate : " + dateFormat.format(calendar.getTime()));
-        return dateFormat.format(calendar.getTime());
+        String date = dateFormat.format(calendar.getTime());
+        LOGGER.info("createDate : " + date);
+        return date;
     }
 }
