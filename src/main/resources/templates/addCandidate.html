@@ -26,12 +26,12 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-item nav-link active" href="#" th:href="@{/formAddCandidate}">Добавить кондидата<span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link active" href="#" th:href="@{/formAddCandidate}">Добавить кандидата<span class="sr-only">(current)</span></a>
                 <a class="nav-item nav-link" th:href="@{/index}">Главная</a>
                 <a class="nav-item nav-link" th:href="@{/posts}">Вакансии</a>
                 <a class="nav-item nav-link" th:href="@{/formAddPost}">Добавить вакансию</a>
                 <a class="nav-item nav-link" th:href="@{/candidates}">Кандидаты</a>
-                <a class="nav-item nav-link" th:href="@{/formAddCandidate}">Добавить кондидата</a>
+                <a class="nav-item nav-link" th:href="@{/formAddCandidate}">Добавить кандидата</a>
             </div>
         </div>
     </nav>
@@ -41,16 +41,14 @@
                 Новый кандидат
             </div>
             <div class="card-body">
-                <form>
+                <form th:action="@{/createCandidate}" method="POST">
                     <div class="form-group">
-                        <label>Имя
-                            <input type="text" class="form-control">
-                        </label>
+                        <label for="name">Имя</label>
+                        <input type="text" class="form-control" name="name" id="name">
                     </div>
                     <div class="form-group">
-                        <label>Описание
-                            <input type="text" class="form-control">
-                        </label>
+                        <label for="name">Описание</label>
+                        <input type="text" class="form-control" name="description" id="description">
                     </div>
                     <button type="submit" class="btn btn-primary">Сохранить</button>
                 </form>
