@@ -1,8 +1,7 @@
 package ru.job4j.dreamjob.dream.model.candidate;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import ru.job4j.dreamjob.util.DateUtil;
+
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -36,7 +35,7 @@ public class CandidateStore {
 
     public boolean add(String name, String description) {
         int indexId = atomicInteger.incrementAndGet();
-        candidates.put(indexId, new Candidate(indexId, name, description, createDate()));
+        candidates.put(indexId, new Candidate(indexId, name, description, DateUtil.createDate()));
         LOGGER.info("indexId : " + indexId + ", name : " + name + ", description : " + description);
         return true;
     }
@@ -45,13 +44,5 @@ public class CandidateStore {
         candidates.put(candidate.getId(), new Candidate(candidate.getId(), candidate.getName(),
                 candidate.getDescription(), candidates.get(candidate.getId()).getCreated()));
         return true;
-    }
-
-    private String createDate() {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Calendar calendar = Calendar.getInstance();
-        String date = dateFormat.format(calendar.getTime());
-        LOGGER.info("createDate : " + date);
-        return date;
     }
 }
