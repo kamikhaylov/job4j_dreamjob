@@ -29,10 +29,20 @@ public class PostStore {
         return posts.values();
     }
 
+    public Post findById(int id) {
+        return posts.get(id);
+    }
+
     public boolean add(String name, String description) {
         indexId++;
         posts.put(indexId, new Post(indexId, name, description, createDate()));
         LOGGER.info("indexId : " + indexId + ", name : " + name + ", description : " + description);
+        return true;
+    }
+
+    public boolean update(Post post) {
+        posts.put(post.getId(), new Post(post.getId(), post.getName(), post.getDescription(),
+                posts.get(post.getId()).getCreated()));
         return true;
     }
 
