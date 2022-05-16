@@ -1,11 +1,17 @@
 package ru.job4j.dreamjob.dream.model.post;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.logging.Logger;
 
 public class PostStore {
+    private static final Logger LOGGER = Logger.getLogger(PostStore.class.getName());
     private static final PostStore INST = new PostStore();
+    private int indexId = 3;
 
     private final Map<Integer, Post> posts = new ConcurrentHashMap<>();
 
@@ -21,5 +27,19 @@ public class PostStore {
 
     public Collection<Post> findAll() {
         return posts.values();
+    }
+
+    public boolean add(String name, String description) {
+        indexId++;
+        posts.put(indexId, new Post(indexId, name, description, createDate()));
+        LOGGER.info("indexId : " + indexId + ", name : " + name + ", description : " + description);
+        return true;
+    }
+
+    private String createDate() {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar calendar = Calendar.getInstance();
+        LOGGER.info("createDate : " + dateFormat.format(calendar.getTime()));
+        return dateFormat.format(calendar.getTime());
     }
 }
