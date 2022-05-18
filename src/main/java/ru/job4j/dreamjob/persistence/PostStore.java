@@ -1,8 +1,8 @@
 package ru.job4j.dreamjob.persistence;
 
 import ru.job4j.dreamjob.dream.model.Post;
-import ru.job4j.dreamjob.dream.util.DateUtil;
 
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -17,9 +17,9 @@ public class PostStore {
     private final AtomicInteger atomicInteger = new AtomicInteger(3);
 
     private PostStore() {
-        posts.put(1, new Post(1, "Junior", "Junior Java Job", "2022-01-01"));
-        posts.put(2, new Post(2, "Middle", "Middle Java Job", "2022-01-02"));
-        posts.put(3, new Post(3, "Senior", "Senior Java Job", "2022-01-03"));
+        posts.put(1, new Post(1, "Junior", "Junior Java Job", Calendar.getInstance().getTime()));
+        posts.put(2, new Post(2, "Middle", "Middle Java Job", Calendar.getInstance().getTime()));
+        posts.put(3, new Post(3, "Senior", "Senior Java Job", Calendar.getInstance().getTime()));
     }
 
     public static PostStore instOf() {
@@ -35,15 +35,18 @@ public class PostStore {
     }
 
     public boolean add(String name, String description) {
-        int indexId = atomicInteger.incrementAndGet();
-        posts.put(indexId, new Post(indexId, name, description, DateUtil.createDate()));
-        LOGGER.info("indexId : " + indexId + ", name : " + name + ", description : " + description);
+        int newId = atomicInteger.incrementAndGet();
+        Calendar calendar = Calendar.getInstance();
+        posts.put(newId, new Post(newId, name, description, calendar.getTime()));
+        LOGGER.info("PostStore.add : newId : " + newId + ", name : " + name
+                + ", description : " + description + ", create : " + calendar.getTime());
         return true;
     }
 
     public boolean update(Post post) {
-        posts.put(post.getId(), new Post(post.getId(), post.getName(), post.getDescription(),
-                posts.get(post.getId()).getCreated()));
+        post.setCreated(posts.get(post.getId()).getCreated());
+        posts.replace(post.getId(), post);
+        LOGGER.info("PostStore.update : " + post);
         return true;
     }
 }

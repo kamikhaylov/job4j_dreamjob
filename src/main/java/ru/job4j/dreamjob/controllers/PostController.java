@@ -26,7 +26,7 @@ public class PostController {
     @GetMapping("/formAddPost")
     public String addPost(Model model) {
         model.addAttribute("post", new Post(0, "Заполните поле", "Заполните поле",
-                "Заполните поле"));
+                null));
         return "addPost";
     }
 
@@ -34,7 +34,8 @@ public class PostController {
     public String createPost(HttpServletRequest req) {
         String name = req.getParameter("name");
         String description = req.getParameter("description");
-        LOGGER.info("name : " + name + ", description : " + description);
+        LOGGER.info("PostController.createPost : name : " + name
+                + ", description : " + description);
         postService.add(name, description);
         return "redirect:/posts";
     }

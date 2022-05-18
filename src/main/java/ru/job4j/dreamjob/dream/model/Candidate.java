@@ -1,14 +1,15 @@
 package ru.job4j.dreamjob.dream.model;
 
+import java.util.Date;
 import java.util.Objects;
 
 public class Candidate {
     private int id;
     private String name;
     private String description;
-    private String created;
+    private Date created;
 
-    public Candidate(int id, String name, String description, String created) {
+    public Candidate(int id, String name, String description, Date created) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -39,11 +40,11 @@ public class Candidate {
         this.description = description;
     }
 
-    public String getCreated() {
+    public Date getCreated() {
         return created;
     }
 
-    public void setCreated(String created) {
+    public void setCreated(Date created) {
         this.created = created;
     }
 
@@ -65,5 +66,11 @@ public class Candidate {
     @Override
     public int hashCode() {
         return Objects.hash(id, name, description, created);
+    }
+
+    @Override
+    public String toString() {
+        return "candidate : id : " + id + ", name : " + name + ", description : " + description
+                + ", created  : " + created.toString();
     }
 }

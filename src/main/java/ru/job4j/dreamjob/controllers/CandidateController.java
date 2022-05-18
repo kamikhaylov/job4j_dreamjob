@@ -26,15 +26,16 @@ public class CandidateController {
     @GetMapping("/formAddCandidate")
     public String addCandidate(Model model) {
         model.addAttribute("candidate", new Candidate(0, "Заполните поле", "Заполните поле",
-                "Заполните поле"));
+                null));
         return "addCandidate";
     }
 
     @PostMapping("/createCandidate")
-    public String createPost(HttpServletRequest req) {
+    public String createCandidate(HttpServletRequest req) {
         String name = req.getParameter("name");
         String description = req.getParameter("description");
-        LOGGER.info("name : " + name + ", description : " + description);
+        LOGGER.info("CandidateController.createCandidate : name : " + name
+                + ", description : " + description);
         candidateService.add(name, description);
         return "redirect:/candidates";
     }

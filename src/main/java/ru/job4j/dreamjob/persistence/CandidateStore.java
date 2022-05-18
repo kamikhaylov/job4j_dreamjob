@@ -1,8 +1,8 @@
 package ru.job4j.dreamjob.persistence;
 
 import ru.job4j.dreamjob.dream.model.Candidate;
-import ru.job4j.dreamjob.dream.util.DateUtil;
 
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -17,9 +17,12 @@ public class CandidateStore {
     private final AtomicInteger atomicInteger = new AtomicInteger(3);
 
     private CandidateStore() {
-        candidates.put(1, new Candidate(1, "Petr", "Junior Java Job", "2022-01-01"));
-        candidates.put(2, new Candidate(2, "Ivan", "Middle Java Job", "2022-01-02"));
-        candidates.put(3, new Candidate(3, "Alex", "Senior Java Job", "2022-01-03"));
+        candidates.put(1, new Candidate(1, "Petr", "Junior Java Job",
+                Calendar.getInstance().getTime()));
+        candidates.put(2, new Candidate(2, "Ivan", "Middle Java Job",
+                Calendar.getInstance().getTime()));
+        candidates.put(3, new Candidate(3, "Alex", "Senior Java Job",
+                Calendar.getInstance().getTime()));
     }
 
     public static CandidateStore instOf() {
@@ -35,15 +38,18 @@ public class CandidateStore {
     }
 
     public boolean add(String name, String description) {
-        int indexId = atomicInteger.incrementAndGet();
-        candidates.put(indexId, new Candidate(indexId, name, description, DateUtil.createDate()));
-        LOGGER.info("indexId : " + indexId + ", name : " + name + ", description : " + description);
+        int newId = atomicInteger.incrementAndGet();
+        Calendar calendar = Calendar.getInstance();
+        candidates.put(newId, new Candidate(newId, name, description, calendar.getTime()));
+        LOGGER.info("CandidateStore.add : newId : " + newId + ", name : " + name
+                + ", description : " + description);
         return true;
     }
 
     public boolean update(Candidate candidate) {
-        candidates.put(candidate.getId(), new Candidate(candidate.getId(), candidate.getName(),
-                candidate.getDescription(), candidates.get(candidate.getId()).getCreated()));
+        candidate.setCreated(candidates.get(candidate.getId()).getCreated());
+        candidates.replace(candidate.getId(), candidate);
+        LOGGER.info("CandidateStore.update : " + candidate);
         return true;
     }
 }
