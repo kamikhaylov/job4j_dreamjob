@@ -1,5 +1,6 @@
 package ru.job4j.dreamjob.controllers;
 
+import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +12,7 @@ import ru.job4j.dreamjob.service.CandidateService;
 
 import java.util.logging.Logger;
 
+@ThreadSafe
 @Controller
 public class CandidateController {
     private static final Logger LOGGER = Logger.getLogger(CandidateController.class.getName());

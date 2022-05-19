@@ -1,5 +1,6 @@
 package ru.job4j.dreamjob.persistence;
 
+import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Repository;
 import ru.job4j.dreamjob.dream.model.Candidate;
 
@@ -10,6 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Logger;
 
+@ThreadSafe
 @Repository
 public class CandidateStore {
     private static final Logger LOGGER = Logger.getLogger(CandidateStore.class.getName());
