@@ -14,7 +14,11 @@ import java.util.logging.Logger;
 @Controller
 public class PostController {
     private static final Logger LOGGER = Logger.getLogger(PostController.class.getName());
-    private final PostService postService = PostService.instOf();
+    private final PostService postService;
+
+    public PostController(PostService postService) {
+        this.postService = postService;
+    }
 
     @GetMapping("/posts")
     public String posts(Model model) {

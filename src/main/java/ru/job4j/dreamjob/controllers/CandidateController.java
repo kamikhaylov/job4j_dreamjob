@@ -14,7 +14,11 @@ import java.util.logging.Logger;
 @Controller
 public class CandidateController {
     private static final Logger LOGGER = Logger.getLogger(CandidateController.class.getName());
-    private final CandidateService candidateService = CandidateService.instOf();
+    private final CandidateService candidateService;
+
+    public CandidateController(CandidateService candidateService) {
+        this.candidateService = candidateService;
+    }
 
     @GetMapping("/candidates")
     public String candidates(Model model) {
