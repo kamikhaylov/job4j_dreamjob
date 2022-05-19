@@ -2,7 +2,7 @@ package ru.job4j.dreamjob.persistence;
 
 import ru.job4j.dreamjob.dream.model.Post;
 
-import java.util.Calendar;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -17,9 +17,9 @@ public class PostStore {
     private final AtomicInteger atomicInteger = new AtomicInteger(3);
 
     private PostStore() {
-        posts.put(1, new Post(1, "Junior", "Junior Java Job", Calendar.getInstance().getTime()));
-        posts.put(2, new Post(2, "Middle", "Middle Java Job", Calendar.getInstance().getTime()));
-        posts.put(3, new Post(3, "Senior", "Senior Java Job", Calendar.getInstance().getTime()));
+        posts.put(1, new Post(1, "Junior", "Junior Java Job", LocalDateTime.now()));
+        posts.put(2, new Post(2, "Middle", "Middle Java Job", LocalDateTime.now()));
+        posts.put(3, new Post(3, "Senior", "Senior Java Job", LocalDateTime.now()));
     }
 
     public static PostStore instOf() {
@@ -36,9 +36,8 @@ public class PostStore {
 
     public boolean add(Post post) {
         int newId = atomicInteger.incrementAndGet();
-        Calendar calendar = Calendar.getInstance();
         post.setId(newId);
-        post.setCreated(calendar.getTime());
+        post.setCreated(LocalDateTime.now());
         posts.put(newId, post);
         LOGGER.info("PostStore.add : newId : " + post);
         return true;

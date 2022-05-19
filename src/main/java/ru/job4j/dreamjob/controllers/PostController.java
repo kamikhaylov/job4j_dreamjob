@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import ru.job4j.dreamjob.dream.model.Post;
 import ru.job4j.dreamjob.service.PostService;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.logging.Logger;
 
 @Controller

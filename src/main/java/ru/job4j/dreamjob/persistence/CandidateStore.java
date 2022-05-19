@@ -2,7 +2,7 @@ package ru.job4j.dreamjob.persistence;
 
 import ru.job4j.dreamjob.dream.model.Candidate;
 
-import java.util.Calendar;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -18,11 +18,11 @@ public class CandidateStore {
 
     private CandidateStore() {
         candidates.put(1, new Candidate(1, "Petr", "Junior Java Job",
-                Calendar.getInstance().getTime()));
+                LocalDateTime.now()));
         candidates.put(2, new Candidate(2, "Ivan", "Middle Java Job",
-                Calendar.getInstance().getTime()));
+                LocalDateTime.now()));
         candidates.put(3, new Candidate(3, "Alex", "Senior Java Job",
-                Calendar.getInstance().getTime()));
+                LocalDateTime.now()));
     }
 
     public static CandidateStore instOf() {
@@ -39,9 +39,8 @@ public class CandidateStore {
 
     public boolean add(Candidate candidate) {
         int newId = atomicInteger.incrementAndGet();
-        Calendar calendar = Calendar.getInstance();
         candidate.setId(newId);
-        candidate.setCreated(calendar.getTime());
+        candidate.setCreated(LocalDateTime.now());
         candidates.put(newId, candidate);
         LOGGER.info("CandidateStore.add : " + candidate);
         return true;
