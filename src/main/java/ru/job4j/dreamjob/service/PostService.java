@@ -20,8 +20,8 @@ public class PostService {
         return store.findAll();
     }
 
-    public boolean add(String name, String description) {
-        return store.add(name, description);
+    public boolean add(Post post) {
+        return store.add(post);
     }
 
     public Post findById(int id) {

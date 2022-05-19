@@ -37,12 +37,13 @@ public class CandidateStore {
         return candidates.get(id);
     }
 
-    public boolean add(String name, String description) {
+    public boolean add(Candidate candidate) {
         int newId = atomicInteger.incrementAndGet();
         Calendar calendar = Calendar.getInstance();
-        candidates.put(newId, new Candidate(newId, name, description, calendar.getTime()));
-        LOGGER.info("CandidateStore.add : newId : " + newId + ", name : " + name
-                + ", description : " + description);
+        candidate.setId(newId);
+        candidate.setCreated(calendar.getTime());
+        candidates.put(newId, candidate);
+        LOGGER.info("CandidateStore.add : " + candidate);
         return true;
     }
 

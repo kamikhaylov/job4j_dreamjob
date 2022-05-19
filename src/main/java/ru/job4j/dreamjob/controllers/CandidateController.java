@@ -31,12 +31,10 @@ public class CandidateController {
     }
 
     @PostMapping("/createCandidate")
-    public String createCandidate(HttpServletRequest req) {
-        String name = req.getParameter("name");
-        String description = req.getParameter("description");
-        LOGGER.info("CandidateController.createCandidate : name : " + name
-                + ", description : " + description);
-        candidateService.add(name, description);
+    public String createCandidate(@ModelAttribute Candidate candidate) {
+        LOGGER.info("CandidateController.createCandidate : name : " + candidate.getName()
+                + ", description : " + candidate.getDescription());
+        candidateService.add(candidate);
         return "redirect:/candidates";
     }
 

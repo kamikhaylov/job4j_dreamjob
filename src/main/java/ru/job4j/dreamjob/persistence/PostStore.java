@@ -34,12 +34,13 @@ public class PostStore {
         return posts.get(id);
     }
 
-    public boolean add(String name, String description) {
+    public boolean add(Post post) {
         int newId = atomicInteger.incrementAndGet();
         Calendar calendar = Calendar.getInstance();
-        posts.put(newId, new Post(newId, name, description, calendar.getTime()));
-        LOGGER.info("PostStore.add : newId : " + newId + ", name : " + name
-                + ", description : " + description + ", create : " + calendar.getTime());
+        post.setId(newId);
+        post.setCreated(calendar.getTime());
+        posts.put(newId, post);
+        LOGGER.info("PostStore.add : newId : " + post);
         return true;
     }
 

@@ -31,12 +31,10 @@ public class PostController {
     }
 
     @PostMapping("/createPost")
-    public String createPost(HttpServletRequest req) {
-        String name = req.getParameter("name");
-        String description = req.getParameter("description");
-        LOGGER.info("PostController.createPost : name : " + name
-                + ", description : " + description);
-        postService.add(name, description);
+    public String createPost(@ModelAttribute Post post) {
+        LOGGER.info("PostController.createPost : name : " + post.getName()
+                + ", description : " + post.getDescription());
+        postService.add(post);
         return "redirect:/posts";
     }
 

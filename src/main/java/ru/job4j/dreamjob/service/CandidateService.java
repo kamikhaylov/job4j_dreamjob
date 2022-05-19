@@ -20,8 +20,8 @@ public class CandidateService {
         return store.findAll();
     }
 
-    public boolean add(String name, String description) {
-        return store.add(name, description);
+    public boolean add(Candidate candidate) {
+        return store.add(candidate);
     }
 
     public Candidate findById(int id) {
