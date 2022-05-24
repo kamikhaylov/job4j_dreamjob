@@ -63,6 +63,7 @@
                 </td>
                 <td th:text="${candidate.description}" />
                 <td th:text="${#temporals.format(candidate.created, 'yyyy-MM-dd')}" />
+                <td th:text="${candidate.city.name}" />
             </tr>
             </tbody>
         </table>

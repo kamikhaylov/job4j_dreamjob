@@ -3,6 +3,7 @@ package ru.job4j.dreamjob.persistence;
 import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Repository;
 import ru.job4j.dreamjob.dream.model.Candidate;
+import ru.job4j.dreamjob.dream.model.City;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -21,11 +22,11 @@ public class CandidateStore {
 
     private CandidateStore() {
         candidates.put(1, new Candidate(1, "Petr", "Junior Java Job",
-                LocalDateTime.now()));
+                LocalDateTime.now(), true, new City(1, "Москва")));
         candidates.put(2, new Candidate(2, "Ivan", "Middle Java Job",
-                LocalDateTime.now()));
+                LocalDateTime.now(), true, new City(1, "Москва")));
         candidates.put(3, new Candidate(3, "Alex", "Senior Java Job",
-                LocalDateTime.now()));
+                LocalDateTime.now(), true, new City(1, "Москва")));
     }
 
     public Collection<Candidate> findAll() {

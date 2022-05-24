@@ -9,12 +9,26 @@ public class Candidate {
     private String description;
     private LocalDateTime created;
     private boolean visible;
+    private City city;
+
+    public Candidate() {
+    }
 
     public Candidate(int id, String name, String description, LocalDateTime created) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.created = created;
+    }
+
+    public Candidate(int id, String name, String description, LocalDateTime created,
+                     boolean visible, City city) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.created = created;
+        this.visible = visible;
+        this.city = city;
     }
 
     public int getId() {
@@ -55,6 +69,14 @@ public class Candidate {
 
     public void setVisible(boolean visible) {
         this.visible = visible;
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
     }
 
     @Override
