@@ -76,7 +76,8 @@ public class PostDBStore {
         LOGGER.info("PostDBStore.update : " + post.toString());
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement(
-                     "UPDATE post SET name = ?, description = ?, created = ?, visible = ?, city_id = ? where id = ?",
+                     "UPDATE post SET name = ?, description = ?, created = ?, visible = ?, "
+                             + "city_id = ? WHERE id = ?",
                      PreparedStatement.RETURN_GENERATED_KEYS)
         ) {
             ps.setString(1, post.getName());
