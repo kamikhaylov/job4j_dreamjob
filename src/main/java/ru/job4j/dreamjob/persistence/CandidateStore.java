@@ -1,6 +1,8 @@
 package ru.job4j.dreamjob.persistence;
 
 import net.jcip.annotations.ThreadSafe;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import ru.job4j.dreamjob.dream.model.Candidate;
 import ru.job4j.dreamjob.dream.model.City;
@@ -10,12 +12,11 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.logging.Logger;
 
 @ThreadSafe
 @Repository
 public class CandidateStore {
-    private static final Logger LOGGER = Logger.getLogger(CandidateStore.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(CandidateStore.class.getName());
 
     private final Map<Integer, Candidate> candidates = new ConcurrentHashMap<>();
     private final AtomicInteger atomicInteger = new AtomicInteger(3);

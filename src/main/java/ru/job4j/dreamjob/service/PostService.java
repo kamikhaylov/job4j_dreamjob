@@ -1,18 +1,19 @@
 package ru.job4j.dreamjob.service;
 
 import net.jcip.annotations.ThreadSafe;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import ru.job4j.dreamjob.dream.model.Post;
 import ru.job4j.dreamjob.persistence.PostDBStore;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.logging.Logger;
 
 @ThreadSafe
 @Service
 public class PostService {
-    private static final Logger LOGGER = Logger.getLogger(PostService.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(PostService.class.getName());
     private final PostDBStore store;
     private final CityService cityService;
 

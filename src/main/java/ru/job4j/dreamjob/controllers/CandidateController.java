@@ -1,6 +1,8 @@
 package ru.job4j.dreamjob.controllers;
 
 import net.jcip.annotations.ThreadSafe;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -19,12 +21,12 @@ import ru.job4j.dreamjob.service.CandidateService;
 import ru.job4j.dreamjob.service.CityService;
 
 import java.io.IOException;
-import java.util.logging.Logger;
 
 @ThreadSafe
 @Controller
 public class CandidateController {
-    private static final Logger LOGGER = Logger.getLogger(CandidateController.class.getName());
+    private static final Logger LOGGER =
+            LoggerFactory.getLogger(CandidateController.class.getName());
     private final CandidateService candidateService;
     private final CityService cityService;
 

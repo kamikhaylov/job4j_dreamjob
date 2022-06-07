@@ -1,6 +1,8 @@
 package ru.job4j.dreamjob.persistence;
 
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import ru.job4j.dreamjob.dream.model.City;
 import ru.job4j.dreamjob.dream.model.Post;
@@ -12,11 +14,10 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 @Repository
 public class PostDBStore {
-    private static final Logger LOGGER = Logger.getLogger(PostDBStore.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(PostDBStore.class.getName());
     private final BasicDataSource pool;
 
     public PostDBStore(BasicDataSource pool) {
@@ -40,7 +41,7 @@ public class PostDBStore {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
         return posts;
     }
@@ -65,8 +66,7 @@ public class PostDBStore {
                 }
             }
         } catch (Exception e) {
-            LOGGER.info(e.toString());
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
             return false;
         }
         return true;
@@ -88,7 +88,7 @@ public class PostDBStore {
             ps.setInt(6, post.getId());
             ps.executeUpdate();
         } catch (Exception e) {
-            LOGGER.info(e.toString());
+            LOGGER.error(e.getMessage(), e);
         }
         return true;
     }
@@ -110,7 +110,7 @@ public class PostDBStore {
                 }
             }
         } catch (Exception e) {
-            LOGGER.info(e.toString());
+            LOGGER.error(e.getMessage(), e);
         }
         return null;
     }

@@ -1,6 +1,8 @@
 package ru.job4j.dreamjob.controllers;
 
 import net.jcip.annotations.ThreadSafe;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,12 +13,10 @@ import ru.job4j.dreamjob.dream.model.Post;
 import ru.job4j.dreamjob.service.CityService;
 import ru.job4j.dreamjob.service.PostService;
 
-import java.util.logging.Logger;
-
 @ThreadSafe
 @Controller
 public class PostController {
-    private static final Logger LOGGER = Logger.getLogger(PostController.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(PostController.class.getName());
     private final PostService postService;
     private final CityService cityService;
 
