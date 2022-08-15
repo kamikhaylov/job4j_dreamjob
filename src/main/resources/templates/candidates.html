@@ -41,8 +41,10 @@
             <thead>
             <tr>
                 <th scope="col">#</th>
+                <th scope="col">Фотография
                 <th scope="col">Имя
                 <th scope="col">Описание
+                <th scope="col">Город
                 <th scope="col">Дата и время создания
             </tr>
             </thead>
@@ -51,7 +53,6 @@
                 <td th:text="${candidate.id}"></td>
                 <td>
                     <img th:width="150" th:high="150" th:src="@{|/photoCandidate/${candidate.id}|}">
-                    <span th:text="${candidate.name}"></span>
                 </td>
                 <td>
                     <a th:href="@{|/formUpdateCandidate/${candidate.id}|}">
@@ -66,8 +67,8 @@
                     </span>
                 </td>
                 <td th:text="${candidate.description}" />
-                <td th:text="${#temporals.format(candidate.created, 'yyyy-MM-dd')}" />
                 <td th:text="${candidate.city.name}" />
+                <td th:text="${#temporals.format(candidate.created, 'yyyy-MM-dd')}" />
             </tr>
             </tbody>
         </table>
