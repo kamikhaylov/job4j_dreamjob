@@ -69,7 +69,6 @@ public class CandidateDbStore {
             }
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
-            return false;
         }
         return true;
     }
