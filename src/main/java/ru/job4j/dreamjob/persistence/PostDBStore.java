@@ -14,6 +14,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Repository
 public class PostDBStore {
@@ -25,6 +26,8 @@ public class PostDBStore {
     }
 
     public List<Post> findAll() {
+        LOGGER.info("PostDBStore.findAll");
+
         List<Post> posts = new ArrayList<>();
         try (Connection cn = pool.getConnection();
              PreparedStatement ps =  cn.prepareStatement("SELECT * FROM post")
@@ -43,11 +46,14 @@ public class PostDBStore {
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
         }
+        LOGGER.info("PostDBStore.findAll.result : " + posts.toString());
         return posts;
     }
 
     public boolean add(Post post) {
-        LOGGER.info("PostDBStore.add");
+        LOGGER.info("PostDBStore.add: " + post);
+
+        boolean result = false;
         try (Connection cn = pool.getConnection();
              PreparedStatement ps =  cn.prepareStatement(
                      "INSERT INTO post(name, description, created, visible, city_id) "
@@ -56,7 +62,9 @@ public class PostDBStore {
         ) {
             ps.setString(1, post.getName());
             ps.setString(2, post.getDescription());
-            ps.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
+            ps.setTimestamp(3, Timestamp.valueOf(
+                    Objects.nonNull(post.getCreated()) ? post.getCreated() : LocalDateTime.now())
+            );
             ps.setBoolean(4, post.isVisible());
             ps.setInt(5, post.getCity().getId());
             ps.execute();
@@ -65,19 +73,22 @@ public class PostDBStore {
                     post.setId(id.getInt(1));
                 }
             }
+            result = true;
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
         }
-        return true;
+        LOGGER.info("PostDBStore.add.result: " + result);
+        return result;
     }
 
     public boolean update(Post post) {
         LOGGER.info("PostDBStore.update : " + post.toString());
+
+        boolean result = false;
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement(
                      "UPDATE post SET name = ?, description = ?, created = ?, visible = ?, "
-                             + "city_id = ? WHERE id = ?",
-                     PreparedStatement.RETURN_GENERATED_KEYS)
+                             + "city_id = ? WHERE id = ?")
         ) {
             ps.setString(1, post.getName());
             ps.setString(2, post.getDescription());
@@ -86,20 +97,25 @@ public class PostDBStore {
             ps.setInt(5, post.getCity().getId());
             ps.setInt(6, post.getId());
             ps.executeUpdate();
+            result = true;
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
         }
-        return true;
+        LOGGER.info("PostDBStore.update.result: " + result);
+        return result;
     }
 
     public Post findById(int id) {
+        LOGGER.info("PostDBStore.findById.id : " + id);
+
+        Post post = null;
         try (Connection cn = pool.getConnection();
              PreparedStatement ps =  cn.prepareStatement("SELECT * FROM post WHERE id = ?")
         ) {
             ps.setInt(1, id);
             try (ResultSet it = ps.executeQuery()) {
                 if (it.next()) {
-                    return new Post(
+                    post = new Post(
                             it.getInt("id"),
                             it.getString("name"),
                             it.getString("description"),
@@ -111,6 +127,8 @@ public class PostDBStore {
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
         }
-        return null;
+
+        LOGGER.info("PostDBStore.findById.post : " + post);
+        return post;
     }
 }

@@ -26,6 +26,8 @@ public class CandidateDbStore {
     }
 
     public List<Candidate> findAll() {
+        LOGGER.info("CandidateDbStore.findAll");
+
         List<Candidate> candidates = new ArrayList<>();
         try (Connection cn = pool.getConnection();
              PreparedStatement ps =  cn.prepareStatement("SELECT * FROM candidate")
@@ -44,11 +46,14 @@ public class CandidateDbStore {
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
         }
+        LOGGER.info("CandidateDbStore.findAll.result : " + candidates.toString());
         return candidates;
     }
 
     public boolean add(Candidate candidate) {
         LOGGER.info("CandidateDbStore.add");
+
+        boolean result = false;
         try (Connection cn = pool.getConnection();
              PreparedStatement ps =  cn.prepareStatement(
                      "INSERT INTO candidate(name, description, created, visible, city_id, photo) "
@@ -67,14 +72,18 @@ public class CandidateDbStore {
                     candidate.setId(id.getInt(1));
                 }
             }
+            result = true;
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
         }
-        return true;
+        LOGGER.info("CandidateDbStore.add.result : " + result);
+        return result;
     }
 
     public boolean update(Candidate candidate) {
         LOGGER.info("CandidateDbStore.update : " + candidate.toString());
+
+        boolean result = false;
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement(
                      "UPDATE candidate SET name = ?, description = ?, created = ?, visible = ?, "
@@ -89,13 +98,18 @@ public class CandidateDbStore {
             ps.setString(6, new String(Base64.encode(candidate.getPhoto())));
             ps.setInt(7, candidate.getId());
             ps.executeUpdate();
+            result = true;
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
         }
-        return true;
+        LOGGER.info("CandidateDbStore.add.update : " + result);
+        return result;
     }
 
     public Candidate findById(int id) {
+        LOGGER.info("CandidateDbStore.findById.id : " + id);
+
+        Candidate candidate = null;
         try (Connection cn = pool.getConnection();
              PreparedStatement ps =
                      cn.prepareStatement("SELECT * FROM candidate WHERE id = ?")
@@ -103,7 +117,7 @@ public class CandidateDbStore {
             ps.setInt(1, id);
             try (ResultSet it = ps.executeQuery()) {
                 if (it.next()) {
-                    return new Candidate(
+                    candidate = new Candidate(
                             it.getInt("id"),
                             it.getString("name"),
                             it.getString("description"),
@@ -116,6 +130,8 @@ public class CandidateDbStore {
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
         }
-        return null;
+
+        LOGGER.info("CandidateDbStore.findById.candidate : " + candidate);
+        return candidate;
     }
 }
