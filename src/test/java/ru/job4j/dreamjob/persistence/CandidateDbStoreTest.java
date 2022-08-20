@@ -45,15 +45,18 @@ public class CandidateDbStoreTest {
     private Object[][] dataCandidate() {
         return new Object[][] {
                 {
-                        new Candidate(1, "Petr", "desc", LocalDateTime.now(), true,
+                        new Candidate(1, "Petr", "desc",
+                                LocalDateTime.of(2022, 1, 1, 10, 0), true,
                                 new City(1, "Москва"))
                 },
                 {
-                        new Candidate(2, "Ivan", "Dev", LocalDateTime.now(), false,
+                        new Candidate(2, "Ivan", "Dev",
+                                LocalDateTime.of(2022, 1, 1, 10, 0), false,
                                 new City(2, "Спб"))
                 },
                 {
-                        new Candidate(2, "Ivan", "Dev", LocalDateTime.now(), false,
+                        new Candidate(2, "Ivan", "Dev",
+                                LocalDateTime.of(2022, 1, 1, 10, 0), false,
                                 new City(2, "Спб"))
                 }
         };
@@ -81,10 +84,10 @@ public class CandidateDbStoreTest {
     public void whenUpdateCandidate() {
         CandidateDbStore store = new CandidateDbStore(pool);
         Candidate candidate = new Candidate(1, "Petr", "desc",
-                LocalDateTime.now(), true, new City(1, "Москва"));
+                LocalDateTime.of(2022, 1, 1, 10, 0), true, new City(1, "Москва"));
         boolean addResult = store.add(candidate);
         Candidate updatedCandidate = new Candidate(candidate.getId(), "Ivan", "Java",
-                LocalDateTime.now(), true, new City(2, "Спб"));
+                LocalDateTime.of(2022, 2, 2, 20, 22), true, new City(2, "Спб"));
 
         boolean updateResult = store.update(updatedCandidate);
         Candidate candidateInDb = store.findById(candidate.getId());
@@ -105,7 +108,8 @@ public class CandidateDbStoreTest {
     @Test
     public void whenAddPhoto() throws IOException {
         CandidateDbStore store = new CandidateDbStore(pool);
-        Candidate candidate = new Candidate(1, "Petr", "desc", LocalDateTime.now(), true,
+        Candidate candidate = new Candidate(1, "Petr", "desc",
+                LocalDateTime.of(2022, 1, 1, 10, 0), true,
                 new City(1, "Москва"), createPhoto(IMG_PATH));
 
         boolean addResult = store.add(candidate);
@@ -123,10 +127,12 @@ public class CandidateDbStoreTest {
     public void whenUpdatePhoto() throws IOException {
         CandidateDbStore store = new CandidateDbStore(pool);
         Candidate candidate = new Candidate(1, "Petr", "desc",
-                LocalDateTime.now(), true, new City(1, "Москва"), createPhoto(IMG_PATH));
+                LocalDateTime.of(2022, 1, 1, 10, 0), true,
+                new City(1, "Москва"), createPhoto(IMG_PATH));
         boolean addResult = store.add(candidate);
         Candidate updatedCandidate = new Candidate(candidate.getId(), "Petr", "desc",
-                LocalDateTime.now(), true, new City(1, "Москва"), createPhoto(IMG_UPDATE_PATH));
+                LocalDateTime.of(2022, 2, 2, 20, 22), true,
+                new City(1, "Москва"), createPhoto(IMG_UPDATE_PATH));
 
         boolean updateResult = store.update(updatedCandidate);
         Candidate candidateInDb = store.findById(candidate.getId());

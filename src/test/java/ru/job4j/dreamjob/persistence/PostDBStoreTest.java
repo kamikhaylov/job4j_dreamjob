@@ -39,11 +39,13 @@ public class PostDBStoreTest {
     private Object[][] dataPost() {
         return new Object[][] {
                 {
-                    new Post(1, "Java Job", "desc", LocalDateTime.now(), true,
+                    new Post(1, "Java Job", "desc",
+                            LocalDateTime.of(2022, 1, 1, 10, 0), true,
                         new City(1, "Москва"))
                 },
                 {
-                    new Post(2, "Java", "Dev", LocalDateTime.now(), false,
+                    new Post(2, "Java", "Dev",
+                            LocalDateTime.of(2022, 1, 1, 10, 0), false,
                         new City(2, "Спб"))
                 }
         };
@@ -70,10 +72,12 @@ public class PostDBStoreTest {
     @Test()
     public void whenUpdatePost() {
         PostDBStore store = new PostDBStore(pool);
-        Post post = new Post(1, "Java Job", "desc", LocalDateTime.now(), true,
+        Post post = new Post(1, "Java Job", "desc",
+                LocalDateTime.of(2022, 1, 1, 10, 0), true,
                 new City(1, "Москва"));
         boolean addResult = store.add(post);
-        Post updatedPost = new Post(post.getId(), "Java", "Dev", LocalDateTime.now(), false,
+        Post updatedPost = new Post(post.getId(), "Java", "Dev",
+                LocalDateTime.of(2022, 2, 2, 12, 22), false,
                 new City(2, "Спб"));
 
         boolean updateResult = store.update(updatedPost);
