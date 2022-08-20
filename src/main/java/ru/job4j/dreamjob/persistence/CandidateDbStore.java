@@ -1,7 +1,8 @@
 package ru.job4j.dreamjob.persistence;
 
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.dbcp2.BasicDataSource;
-import org.postgresql.shaded.com.ongres.scram.common.bouncycastle.base64.Base64;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -15,6 +16,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Repository 
 public class CandidateDbStore {
@@ -62,10 +64,10 @@ public class CandidateDbStore {
         ) {
             ps.setString(1, candidate.getName());
             ps.setString(2, candidate.getDescription());
-            ps.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
+            ps.setTimestamp(3, getCreated(candidate));
             ps.setBoolean(4, candidate.isVisible());
             ps.setInt(5, candidate.getCity().getId());
-            ps.setString(6, new String(Base64.encode(candidate.getPhoto())));
+            ps.setString(6, encodeBase64(candidate.getPhoto()));
             ps.execute();
             try (ResultSet id = ps.getGeneratedKeys()) {
                 if (id.next()) {
@@ -87,15 +89,14 @@ public class CandidateDbStore {
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement(
                      "UPDATE candidate SET name = ?, description = ?, created = ?, visible = ?, "
-                             + "city_id = ?, photo = ? WHERE id = ?",
-                     PreparedStatement.RETURN_GENERATED_KEYS)
+                             + "city_id = ?, photo = ? WHERE id = ?")
         ) {
             ps.setString(1, candidate.getName());
             ps.setString(2, candidate.getDescription());
-            ps.setTimestamp(3, Timestamp.valueOf(candidate.getCreated()));
+            ps.setTimestamp(3, getCreated(candidate));
             ps.setBoolean(4, candidate.isVisible());
             ps.setInt(5, candidate.getCity().getId());
-            ps.setString(6, new String(Base64.encode(candidate.getPhoto())));
+            ps.setString(6, encodeBase64(candidate.getPhoto()));
             ps.setInt(7, candidate.getId());
             ps.executeUpdate();
             result = true;
@@ -124,7 +125,7 @@ public class CandidateDbStore {
                             it.getTimestamp("created").toLocalDateTime(),
                             it.getBoolean("visible"),
                             new City(it.getInt("city_id"), null),
-                            Base64.decode(it.getBytes("photo")));
+                            decodeBase64(it.getString("photo")));
                 }
             }
         } catch (Exception e) {
@@ -133,5 +134,21 @@ public class CandidateDbStore {
 
         LOGGER.info("CandidateDbStore.findById.candidate : " + candidate);
         return candidate;
+    }
+
+    private String encodeBase64(byte[] photo) {
+        Base64 base64 = new Base64();
+        return Objects.nonNull(photo) ? base64.encodeToString(photo) : "";
+    }
+
+    private byte[] decodeBase64(String photo) {
+        Base64 base64 = new Base64();
+        return StringUtils.isNotEmpty(photo) ? base64.decode(photo) : null;
+    }
+
+    private Timestamp getCreated(Candidate candidate) {
+        return Timestamp.valueOf(
+                Objects.nonNull(candidate.getCreated())
+                        ? candidate.getCreated() : LocalDateTime.now());
     }
 }

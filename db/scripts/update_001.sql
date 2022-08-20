@@ -13,5 +13,6 @@ CREATE TABLE candidate (
     description TEXT,
     created     TIMESTAMP,
     visible     BOOLEAN DEFAULT FALSE,
-    city_id     INT
+    city_id     INT,
+    photo       TEXT
 );

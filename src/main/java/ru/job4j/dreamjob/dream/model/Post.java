@@ -102,6 +102,7 @@ public class Post {
     @Override
     public String toString() {
         return "post : id : " + id + ", name : " + name + ", description : " + description
-                + ", created : " + created.toString();
+                + ", created : " + created.toString() + ", visible : " + visible
+                + ", city : " + city.toString();
     }
 }

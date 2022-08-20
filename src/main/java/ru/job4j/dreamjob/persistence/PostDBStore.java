@@ -62,9 +62,7 @@ public class PostDBStore {
         ) {
             ps.setString(1, post.getName());
             ps.setString(2, post.getDescription());
-            ps.setTimestamp(3, Timestamp.valueOf(
-                    Objects.nonNull(post.getCreated()) ? post.getCreated() : LocalDateTime.now())
-            );
+            ps.setTimestamp(3, getCreated(post));
             ps.setBoolean(4, post.isVisible());
             ps.setInt(5, post.getCity().getId());
             ps.execute();
@@ -92,7 +90,7 @@ public class PostDBStore {
         ) {
             ps.setString(1, post.getName());
             ps.setString(2, post.getDescription());
-            ps.setTimestamp(3, Timestamp.valueOf(post.getCreated()));
+            ps.setTimestamp(3, getCreated(post));
             ps.setBoolean(4, post.isVisible());
             ps.setInt(5, post.getCity().getId());
             ps.setInt(6, post.getId());
@@ -130,5 +128,10 @@ public class PostDBStore {
 
         LOGGER.info("PostDBStore.findById.post : " + post);
         return post;
+    }
+
+    private Timestamp getCreated(Post post) {
+        return Timestamp.valueOf(Objects.nonNull(post.getCreated())
+                ? post.getCreated() : LocalDateTime.now());
     }
 }
