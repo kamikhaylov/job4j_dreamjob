@@ -61,15 +61,12 @@ public class CandidateDbStoreTest {
 
     @Test(dataProvider = "candidateProvider")
     public void whenCreateCandidate(Candidate candidate) {
-        //GIVEN
         CandidateDbStore store = new CandidateDbStore(pool);
 
-        //WHEN
         boolean addResult = store.add(candidate);
         Candidate candidateInDb = store.findById(candidate.getId());
         List<Candidate> candidates = store.findAll();
 
-        //THEN
         assertTrue(addResult);
         assertNotNull(candidateInDb);
         assertEquals(candidates.size(), 1);
@@ -82,7 +79,6 @@ public class CandidateDbStoreTest {
 
     @Test()
     public void whenUpdateCandidate() {
-        //GIVEN
         CandidateDbStore store = new CandidateDbStore(pool);
         Candidate candidate = new Candidate(1, "Petr", "desc",
                 LocalDateTime.now(), true, new City(1, "Москва"));
@@ -90,12 +86,10 @@ public class CandidateDbStoreTest {
         Candidate updatedCandidate = new Candidate(candidate.getId(), "Ivan", "Java",
                 LocalDateTime.now(), true, new City(2, "Спб"));
 
-        //WHEN
         boolean updateResult = store.update(updatedCandidate);
         Candidate candidateInDb = store.findById(candidate.getId());
         List<Candidate> candidates = store.findAll();
 
-        //THEN
         assertTrue(addResult);
         assertTrue(updateResult);
         assertNotNull(candidateInDb);
@@ -110,16 +104,14 @@ public class CandidateDbStoreTest {
 
     @Test
     public void whenAddPhoto() throws IOException {
-        //GIVEN
         CandidateDbStore store = new CandidateDbStore(pool);
         Candidate candidate = new Candidate(1, "Petr", "desc", LocalDateTime.now(), true,
                 new City(1, "Москва"), createPhoto(IMG_PATH));
-        //WHEN
+
         boolean addResult = store.add(candidate);
         Candidate candidateInDb = store.findById(candidate.getId());
         List<Candidate> candidates = store.findAll();
 
-        //THEN
         assertTrue(addResult);
         assertNotNull(candidateInDb);
         assertNotNull(candidateInDb.getPhoto());
@@ -129,7 +121,6 @@ public class CandidateDbStoreTest {
 
     @Test
     public void whenUpdatePhoto() throws IOException {
-        //GIVEN
         CandidateDbStore store = new CandidateDbStore(pool);
         Candidate candidate = new Candidate(1, "Petr", "desc",
                 LocalDateTime.now(), true, new City(1, "Москва"), createPhoto(IMG_PATH));
@@ -137,12 +128,10 @@ public class CandidateDbStoreTest {
         Candidate updatedCandidate = new Candidate(candidate.getId(), "Petr", "desc",
                 LocalDateTime.now(), true, new City(1, "Москва"), createPhoto(IMG_UPDATE_PATH));
 
-        //WHEN
         boolean updateResult = store.update(updatedCandidate);
         Candidate candidateInDb = store.findById(candidate.getId());
         List<Candidate> candidates = store.findAll();
 
-        //THEN
         assertTrue(addResult);
         assertTrue(updateResult);
         assertNotNull(candidateInDb);

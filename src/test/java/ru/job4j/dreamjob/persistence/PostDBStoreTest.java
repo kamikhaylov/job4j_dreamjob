@@ -51,15 +51,12 @@ public class PostDBStoreTest {
 
     @Test(dataProvider = "postProvider")
     public void whenCreatePost(Post post) {
-        //GIVEN
         PostDBStore store = new PostDBStore(pool);
 
-        //WHEN
         boolean addResult = store.add(post);
         Post postInDb = store.findById(post.getId());
         List<Post> posts = store.findAll();
 
-        //THEN
         assertTrue(addResult);
         assertNotNull(postInDb);
         assertEquals(posts.size(), 1);
@@ -72,7 +69,6 @@ public class PostDBStoreTest {
 
     @Test()
     public void whenUpdatePost() {
-        //GIVEN
         PostDBStore store = new PostDBStore(pool);
         Post post = new Post(1, "Java Job", "desc", LocalDateTime.now(), true,
                 new City(1, "Москва"));
@@ -80,12 +76,10 @@ public class PostDBStoreTest {
         Post updatedPost = new Post(post.getId(), "Java", "Dev", LocalDateTime.now(), false,
                 new City(2, "Спб"));
 
-        //WHEN
         boolean updateResult = store.update(updatedPost);
         Post postInDb = store.findById(post.getId());
         List<Post> posts = store.findAll();
 
-        //THEN
         assertTrue(addResult);
         assertTrue(updateResult);
         assertNotNull(postInDb);
