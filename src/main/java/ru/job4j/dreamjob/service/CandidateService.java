@@ -40,10 +40,12 @@ public class CandidateService {
     }
 
     public Candidate findById(int id) {
+        LOGGER.info("CandidateService.findById");
         return store.findById(id);
     }
 
     public boolean update(Candidate candidate) {
+        LOGGER.info("CandidateService.update");
         return store.update(candidate);
     }
 }

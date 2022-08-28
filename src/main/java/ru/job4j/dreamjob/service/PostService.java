@@ -39,10 +39,12 @@ public class PostService {
     }
 
     public Post findById(int id) {
+        LOGGER.info("PostService.findById");
         return store.findById(id);
     }
 
     public boolean update(Post post) {
+        LOGGER.info("PostService.update");
         return store.update(post);
     }
 }
