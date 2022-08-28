@@ -36,7 +36,7 @@ public class UserDBStoreTest {
         }
     }
 
-    @Test()
+    //@Test()
     public void whenCreateUser() {
         UserDBStore store = new UserDBStore(pool);
         User user1 = new User(0, "test1@email.ru", "user1", "123");
