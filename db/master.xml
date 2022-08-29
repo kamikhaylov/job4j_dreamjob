@@ -7,5 +7,7 @@
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
         http://www.liquibase.org/xml/ns/dbchangelog-ext
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
-    <include file="scripts/update_001.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/001_ddl_init_schema_post.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/002_ddl_init_schema_candidate.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/003_ddl_init_schema_users.sql" relativeToChangelogFile="true"/>
 </databaseChangeLog>

@@ -49,21 +49,21 @@ public class UserDBStore {
         return result;
     }
 
-    public User findById(int id) {
+    public Optional<User> findById(int id) {
         LOGGER.info("UserDBStore.findById.id : " + id);
 
-        User user = null;
+        Optional<User> result = Optional.empty();
         try (Connection cn = pool.getConnection();
              PreparedStatement ps =  cn.prepareStatement("SELECT * FROM users WHERE id = ?")
         ) {
             ps.setInt(1, id);
             try (ResultSet it = ps.executeQuery()) {
                 if (it.next()) {
-                    user = new User(
+                    result = Optional.of(new User(
                             it.getInt("id"),
                             it.getString("email"),
                             it.getString("name"),
-                            it.getString("password")
+                            it.getString("password"))
                     );
                 }
             }
@@ -71,8 +71,8 @@ public class UserDBStore {
             LOGGER.error(e.getMessage(), e);
         }
 
-        LOGGER.info("UserDBStore.findById.user : " + user);
-        return user;
+        LOGGER.info("UserDBStore.findById.user : " + result);
+        return result;
     }
 
     public List<User> findAll() {
