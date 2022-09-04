@@ -20,6 +20,7 @@ import ru.job4j.dreamjob.dream.model.Candidate;
 import ru.job4j.dreamjob.service.CandidateService;
 import ru.job4j.dreamjob.service.CityService;
 
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @ThreadSafe
@@ -36,15 +37,17 @@ public class CandidateController {
     }
 
     @GetMapping("/candidates")
-    public String candidates(Model model) {
+    public String candidates(Model model, HttpSession session) {
         LOGGER.info("CandidateController.candidates");
+        DreamJobSession.check(model, session);
         model.addAttribute("candidates", candidateService.findAll());
         return "candidates";
     }
 
     @GetMapping("/formAddCandidate")
-    public String addCandidate(Model model) {
+    public String addCandidate(Model model, HttpSession session) {
         LOGGER.info("CandidateController.addCandidate");
+        DreamJobSession.check(model, session);
         model.addAttribute("candidate", new Candidate(0, "Заполните поле", "Заполните поле",
                 null));
         model.addAttribute("cities", cityService.getAllCities());
@@ -65,8 +68,10 @@ public class CandidateController {
     }
 
     @GetMapping("/formUpdateCandidate/{candidateId}")
-    public String formUpdateCandidate(Model model, @PathVariable("candidateId") int id) {
+    public String formUpdateCandidate(Model model, @PathVariable("candidateId") int id,
+                                      HttpSession session) {
         LOGGER.info("CandidateController.formUpdateCandidate");
+        DreamJobSession.check(model, session);
         model.addAttribute("candidate", candidateService.findById(id));
         model.addAttribute("cities", cityService.getAllCities());
         return "updateCandidate";
