@@ -10,8 +10,6 @@ import ru.job4j.dreamjob.persistence.UserDBStore;
 import java.util.Collection;
 import java.util.Optional;
 
-import static org.apache.commons.lang3.StringUtils.isNotEmpty;
-
 @ThreadSafe
 @Service
 public class UserService {
@@ -40,10 +38,6 @@ public class UserService {
 
     public Optional<User> findUserByEmailAndPwd(String email, String password) {
         LOGGER.info("UserService.findUserByEmailAndPwd : " + email);
-        Optional<User> result = null;
-        if (isNotEmpty(email) && isNotEmpty(password)) {
-            result = store.findUserByEmailAndPwd(email, password);
-        }
-        return result;
+        return store.findUserByEmailAndPwd(email, password);
     }
 }
