@@ -1,4 +1,4 @@
-package ru.job4j.dreamjob.controllers;
+package ru.job4j.dreamjob.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,11 +8,14 @@ import ru.job4j.dreamjob.dream.model.User;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-public class DreamJobSession {
+public final class DreamJobSession {
     private static final Logger LOGGER =
             LoggerFactory.getLogger(DreamJobSession.class.getName());
     private static final String USER = "user";
     private static final String GUEST = "guest";
+
+    private DreamJobSession() {
+    }
 
     public static void create(User user, HttpServletRequest req) {
         LOGGER.info("DreamJobSession.create");

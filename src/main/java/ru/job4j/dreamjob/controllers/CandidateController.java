@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import ru.job4j.dreamjob.dream.model.Candidate;
 import ru.job4j.dreamjob.service.CandidateService;
 import ru.job4j.dreamjob.service.CityService;
+import ru.job4j.dreamjob.util.DreamJobSession;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;

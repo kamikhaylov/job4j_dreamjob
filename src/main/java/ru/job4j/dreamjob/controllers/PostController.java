@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import ru.job4j.dreamjob.dream.model.Post;
 import ru.job4j.dreamjob.service.CityService;
 import ru.job4j.dreamjob.service.PostService;
+import ru.job4j.dreamjob.util.DreamJobSession;
 
 import javax.servlet.http.HttpSession;
 

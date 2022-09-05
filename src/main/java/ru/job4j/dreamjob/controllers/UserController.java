@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.job4j.dreamjob.dream.model.User;
 import ru.job4j.dreamjob.service.UserService;
+import ru.job4j.dreamjob.util.DreamJobSession;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
