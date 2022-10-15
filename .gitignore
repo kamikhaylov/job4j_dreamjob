@@ -20,3 +20,5 @@ out
 *.log
 
 /job4j_threads.iml
+/testdb.mv.db
+/testdb.trace.db
