@@ -19,32 +19,32 @@
 
 ### Скриншоты приложения
 
-Страница авторизации:
+#### Страница авторизации:
 ![reg.png](src/main/resources/img/readme/reg.png)
 
-Страница регистрации пользователя:
+#### Страница регистрации пользователя:
 ![addUser.png](src/main/resources/img/readme/addUser.png)
 
-Страница с вакансиями:
+#### Страница с вакансиями:
 ![post.png](src/main/resources/img/readme/post.png)
 
-Добавить вакансию с выбором города:
+#### Добавить вакансию с выбором города:
 ![addPost.png](src/main/resources/img/readme/addPost.png)
 
-Страница с кандидатами:
+#### Страница с кандидатами:
 ![candidate.png](src/main/resources/img/readme/candidate.png)
 
-Добавить кандидата с загрузкой фотографией:
+#### Добавить кандидата с загрузкой фотографией:
 ![addCandidate.png](src/main/resources/img/readme/addCandidate.png)
 
-Таблица пользователей из БД:
-![addUser.png](src/main/resources/img/readme/addUser.png)
+#### Таблица пользователей из БД:
+![dbUser.png](src/main/resources/img/readme/dbUser.png)
 
-Таблица вакансий из БД:
-![addPost.png](src/main/resources/img/readme/addPost.png)
+#### Таблица вакансий из БД:
+![dbPost.png](src/main/resources/img/readme/dbPost.png)
 
-Таблица кандиидатов из БД:
-![addCandidate.png](src/main/resources/img/readme/addCandidate.png)
+#### Таблица кандидатов из БД:
+![dbCandidate.png](src/main/resources/img/readme/dbCandidate.png)
 
 Среда разработки:
 ![dev.png](src/main/resources/img/readme/dev.png)
