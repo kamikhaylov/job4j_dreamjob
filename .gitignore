@@ -19,6 +19,6 @@ target
 out
 *.log
 
-/job4j_threads.iml
+/job4j_dreamjob.iml
 /testdb.mv.db
 /testdb.trace.db
